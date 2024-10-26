@@ -1,0 +1,62 @@
+ 
+
+<!DOCTYPE html>
+<html lang="{% if request.COOKIES.language == 'en' %}en{% else %}ru{% endif %}">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if request.COOKIES.language == 'en' %}Clothing store{% else %}Магазин одежды{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<header>
+    <h1>{% if request.COOKIES.language == 'en' %}Welcome to the Clothing store{% else %}Добро пожаловать в магазин одежды на заказ!{% endif %}</h1>
+</header>
+<main>
+    <section class="content">
+        <h2>{% if request.COOKIES.language == 'en' %}Write to us about your preferences and it will definitely appear in our store{% else %}Напишите нам о ваших предпочтениях и это обязательно появится в нашем магазине{% endif %}</h2>
+        <form action="{% url 'set_preferences' %}" method="post">
+            {% csrf_token %}
+            <label for="name">{% if request.COOKIES.language == 'en' %}Name:{% else %}Имя:{% endif %}</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">{% if request.COOKIES.language == 'en' %}Email:{% else %}Email:{% endif %}</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="categories">{% if request.COOKIES.language == 'en' %}Select your categories of models:{% else %}Выберите интересующие вас модели:{% endif %}</label>
+            <select id="categories" name="categories" multiple required>
+                <option value="sports">{% if request.COOKIES.language == 'en' %}Sports{% else %}Спортивное{% endif %}</option>
+                <option value="Casual">{% if request.COOKIES.language == 'en' %}Casual{% else %}Повседневное{% endif %}</option>
+                <option value="Classic">{% if request.COOKIES.language == 'en' %}Classic{% else %}Классическое{% endif %}</option>
+                <option value="Wedding">{% if request.COOKIES.language == 'en' %}Wedding{% else %}Свадебное{% endif %}</option>
+            </select>
+
+            <label for="frequency">{% if request.COOKIES.language == 'en' %}Choose a clothing size:{% else %}Выберите размер одежды:{% endif %}</label>
+            <select id="frequency" name="frequency" required>
+                <option value="small">{% if request.COOKIES.language == 'en' %}Small{% else %}Маленький(S){% endif %}</option>
+                <option value="Medium">{% if request.COOKIES.language == 'en' %}Medium{% else %}Средний(M){% endif %}</option>
+                <option value="large">{% if request.COOKIES.language == 'en' %}Large{% else %}Большой(L){% endif %}</option>
+            </select>
+
+            <button type="submit">{% if request.COOKIES.language == 'en' %}Save{% else %}Сохранить{% endif %}</button>
+        </form>
+    </section>
+    <section class="clothes-content">
+        <h2>{% if request.COOKIES.language == 'en' %}Popular Clothes{% else %}Часто заказываемые вещи{% endif %}</h2>
+        <article>
+            <h3>{% if request.COOKIES.language == 'en' %}Wedding Dress{% else %}Свадебное платье{% endif %}</h3>
+            <p>{% if request.COOKIES.language == 'en' %}On the model, the size is S{% else %}На модели размер S{% endif %}</p>
+            <img src="{% static 'images/wed.jpg' %}" alt="{% if request.COOKIES.language == 'en' %}Wedding Dress{% else %}Свадебное платье{% endif %}">
+        </article>
+        <article>
+            <h3>{% if request.COOKIES.language == 'en' %}Classic men's suit{% else %}Классический мужской костюм{% endif %}</h3>
+            <p>{% if request.COOKIES.language == 'en' %}On the model, the size is L{% else %}На модели размер L{% endif %}</p>
+            <img src="{% static 'images/suit.jpg' %}" alt="{% if request.COOKIES.language == 'en' %}Classic men's suit{% else %}Классический мужской костюм{% endif %}">
+        </article>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 {% if request.COOKIES.language == 'en' %}Clothing store{% else %}Магазин одежды{% endif %}. Все права защищены.</p>
+</footer>
+</body>
+</html>
